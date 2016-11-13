@@ -1,6 +1,6 @@
 import test from 'ava'
 import assert from 'assert'
-import {evalInContext} from '../../src/test-helpr'
+import {evalInContext} from '../../src'
 import foo from '../src/foo'
 
 assert.equal(foo('bar'), 'foo:bar')
