@@ -1,5 +1,5 @@
 import test from 'ava'
-import {isLike} from '../../src/test-helpr'
+import {isLike} from '../../src'
 
 test('isLike: identical objects', t => {
   const expected = {a: 1}

@@ -2,11 +2,12 @@
 
 miscellaneous test helper functions
 
-> see tests for examples
+> see [tests](test) for examples
 
 ## usage
 
-- `npm install test-helpr`
+1. `npm install test-helpr`
+1. `import {...} from 'test-helpr'`
 
 ## development
 
