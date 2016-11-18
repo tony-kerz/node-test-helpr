@@ -2,7 +2,7 @@ import _ from 'lodash'
 import debug from 'debug'
 import vm from 'vm'
 const assertRe = /^assert\((.+)\)$/
-const dbg = debug('test:test-helpr')
+const dbg = debug('app:test-helpr')
 
 export function asTemplate(value) {
   return `\`${value}\``
