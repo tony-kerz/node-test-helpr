@@ -5,7 +5,7 @@ const assertRe = /^assert\((.+)\)$/
 const dbg = debug('app:test-helpr')
 
 export function asTemplate(value) {
-  return `\`${value}\``
+  return '`' + value + '`'
 }
 
 export function evalInContext({js, context}) {
