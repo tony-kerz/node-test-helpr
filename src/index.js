@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import debug from 'debug'
 import vm from 'vm'
+export * from './state'
+
 const assertRe = /^assert\((.+)\)$/
 const dbg = debug('app:test-helpr')
 
