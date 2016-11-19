@@ -1,6 +1,6 @@
 import test from 'ava'
 import assert from 'assert'
-import {evalInContext} from '../../src'
+import {evalInContext, asTemplate} from '../../src'
 import foo from '../src/foo'
 
 assert.equal(foo('bar'), 'foo:bar')
@@ -42,4 +42,18 @@ test('evalInContext: string-template', (t)=>{
     }
   ),
   '#foo:bar')
+})
+
+test('asTemplate', (t)=>{
+  t.is(asTemplate('foo:${bar}'), '`foo:${bar}`')
+})
+
+test('evalInContext: asTemplate', (t)=>{
+  const foo = asTemplate('bar')
+  t.is(evalInContext(
+    {
+      js: foo
+    }
+  ),
+  'bar')
 })
