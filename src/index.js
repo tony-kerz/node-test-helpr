@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import debug from 'debug'
 import vm from 'vm'
+import stringify from 'fast-safe-stringify'
 export * from './state'
 
 const assertRe = /^assert\((.+)\)$/
@@ -27,7 +28,7 @@ export function isLike({expected, actual}) {
   } else {
     result = expected === actual
   }
-  dbg('is-like: expected=%o, actual=%o, result=%o', JSON.stringify(expected), JSON.stringify(actual), result)
+  dbg('is-like: expected=%o, actual=%o, result=%o', stringify(expected), stringify(actual), result)
   return result
 }
 
