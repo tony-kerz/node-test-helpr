@@ -1,10 +1,9 @@
-import _ from 'lodash'
 import debug from 'debug'
 import vm from 'vm'
-import stringify from 'fast-safe-stringify'
+import config from 'config'
 export * from './state'
+export * from './is-like'
 
-const assertRe = /^assert\((.+)\)$/
 const dbg = debug('app:test-helpr')
 
 export function asTemplate(value) {
@@ -13,38 +12,6 @@ export function asTemplate(value) {
 
 export function evalInContext({js, context}) {
   return new vm.Script(`(${js})`).runInContext(new vm.createContext(context))
-}
-
-export function isLike({expected, actual}) {
-  let result
-  let match
-  if (_.isArray(expected)) {
-    result = isArrayLike({expected, actual})
-  } else if (_.isObject(expected)) {
-    result = isObjectLike({expected, actual})
-  } else if (match = assertRe.exec(expected)) { // eslint-disable-line no-cond-assign
-    dbg('is-like: encountered assert=%o', match[1])
-    result = eval(match[1])
-  } else {
-    result = expected === actual
-  }
-  dbg('is-like: expected=%o, actual=%o, result=%o', stringify(expected), stringify(actual), result)
-  return result
-}
-
-function isArrayLike({expected, actual}){
-  return (
-    _.isArray(actual) &&
-    (expected.length == actual.length) &&
-    _.every(expected, (elt, index)=>{return isLike({expected: elt, actual: actual[index]})})
-  )
-}
-
-function isObjectLike({expected, actual}){
-  return (
-    _.isObject(actual) &&
-    _.every(expected, (elt, key)=>{return isLike({expected: elt, actual: actual[key]})})
-  )
 }
 
 export async function chill({millis=0, resolution, rejection='doh!'}){
@@ -65,4 +32,8 @@ export async function chill({millis=0, resolution, rejection='doh!'}){
     }
   )
   return promise
+}
+
+export function getUrl(path, {context}={}){
+  return `http://localhost:${config.get('listener.port')}${evalInContext({js: asTemplate(path), context})}`
 }
