@@ -1,6 +1,5 @@
 import vm from 'vm'
 import debug from 'debug'
-import config from 'config'
 
 export * from './state'
 export * from './is-like'
@@ -36,6 +35,6 @@ export async function chill({millis = 0, resolution, rejection = 'doh!'}) {
   return promise
 }
 
-export function getUrl(path, {context} = {}) {
-  return `http://localhost:${config.get('listener.port')}${evalInContext({js: asTemplate(path), context})}`
+export function getUrl(path, {context, port} = {}) {
+  return `http://localhost:${port}${evalInContext({js: asTemplate(path), context})}`
 }
