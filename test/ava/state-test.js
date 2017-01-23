@@ -1,7 +1,7 @@
 import test from 'ava'
 import {initState, getState, getRequiredState, setState, unsetState} from '../../src'
 
-test.beforeEach(async ()=>{
+test.beforeEach(() => {
   initState()
 })
 
@@ -34,7 +34,9 @@ test('getRequiredState', t => {
   const state = {foo: 'bar'}
   setState(state)
   t.deepEqual(getRequiredState('foo'), state.foo)
-  t.throws(()=>{getRequiredState('bar')})
+  t.throws(() => {
+    getRequiredState('bar')
+  })
 })
 
 test('unsetState', t => {
