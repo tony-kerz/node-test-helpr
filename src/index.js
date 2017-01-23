@@ -1,6 +1,7 @@
-import debug from 'debug'
 import vm from 'vm'
+import debug from 'debug'
 import config from 'config'
+
 export * from './state'
 export * from './is-like'
 
@@ -11,15 +12,16 @@ export function asTemplate(value) {
 }
 
 export function evalInContext({js, context}) {
+  // eslint-disable-next-line new-cap
   return new vm.Script(`(${js})`).runInContext(new vm.createContext(context))
 }
 
-export async function chill({millis=0, resolution, rejection='doh!'}){
+export async function chill({millis = 0, resolution, rejection = 'doh!'}) {
   dbg('chill: millis=%o, resolution=%o, rejection=%o', millis, resolution, rejection)
   const promise = new Promise(
-    (resolve, reject)=>{
+    (resolve, reject) => {
       setTimeout(
-        ()=>{
+        () => {
           dbg('chill: chilled for [%o] ms...', millis)
           if (resolution) {
             resolve(resolution)
@@ -34,6 +36,6 @@ export async function chill({millis=0, resolution, rejection='doh!'}){
   return promise
 }
 
-export function getUrl(path, {context}={}){
+export function getUrl(path, {context} = {}) {
   return `http://localhost:${config.get('listener.port')}${evalInContext({js: asTemplate(path), context})}`
 }

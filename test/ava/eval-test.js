@@ -1,11 +1,13 @@
-import test from 'ava'
 import assert from 'assert'
+import test from 'ava'
 import {evalInContext, asTemplate} from '../../src'
 import foo from '../src/foo'
 
+/* eslint-disable no-template-curly-in-string */
+
 assert.equal(foo('bar'), 'foo:bar')
 
-test('evalInContext: function', (t)=>{
+test('evalInContext: function', t => {
   t.is(evalInContext(
     {
       js: 'foo("bar")',
@@ -14,7 +16,7 @@ test('evalInContext: function', (t)=>{
   ), 'foo:bar')
 })
 
-test('evalInContext: object', (t)=>{
+test('evalInContext: object', t => {
   t.deepEqual(evalInContext(
     {
       js: '{foo: foo("bar")}',
@@ -24,7 +26,7 @@ test('evalInContext: object', (t)=>{
   {foo: 'foo:bar'})
 })
 
-test('evalInContext: array', (t)=>{
+test('evalInContext: array', t => {
   t.deepEqual(evalInContext(
     {
       js: '[foo("bar")]',
@@ -34,7 +36,7 @@ test('evalInContext: array', (t)=>{
   ['foo:bar'])
 })
 
-test('evalInContext: string-template', (t)=>{
+test('evalInContext: string-template', t => {
   t.is(evalInContext(
     {
       js: '`#${foo("bar")}`',
@@ -44,11 +46,11 @@ test('evalInContext: string-template', (t)=>{
   '#foo:bar')
 })
 
-test('asTemplate', (t)=>{
+test('asTemplate', t => {
   t.is(asTemplate('foo:${bar}'), '`foo:${bar}`')
 })
 
-test('evalInContext: asTemplate', (t)=>{
+test('evalInContext: asTemplate', t => {
   const foo = asTemplate('bar')
   t.is(evalInContext(
     {

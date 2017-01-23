@@ -5,6 +5,7 @@ import stringify from 'fast-safe-stringify'
 const dbg = debug('app:is-like')
 const assertRe = /^assert\((.+)\)$/
 
+// eslint-disable-next-line import/prefer-default-export
 export function isLike({expected, actual}) {
   let result
   let match
@@ -12,8 +13,10 @@ export function isLike({expected, actual}) {
     result = isArrayLike({expected, actual})
   } else if (_.isObject(expected)) {
     result = isObjectLike({expected, actual})
-  } else if (match = assertRe.exec(expected)) { // eslint-disable-line no-cond-assign
+    // eslint-disable-next-line no-cond-assign
+  } else if (match = assertRe.exec(expected)) {
     dbg('is-like: encountered assert=%o', match[1])
+    // eslint-disable-next-line no-eval
     result = eval(match[1])
   } else {
     result = expected === actual
@@ -22,17 +25,21 @@ export function isLike({expected, actual}) {
   return result
 }
 
-function isArrayLike({expected, actual}){
+function isArrayLike({expected, actual}) {
   return (
     _.isArray(actual) &&
-    (expected.length == actual.length) &&
-    _.every(expected, (elt, index)=>{return isLike({expected: elt, actual: actual[index]})})
+    (expected.length === actual.length) &&
+    _.every(expected, (elt, index) => {
+      return isLike({expected: elt, actual: actual[index]})
+    })
   )
 }
 
-function isObjectLike({expected, actual}){
+function isObjectLike({expected, actual}) {
   return (
     _.isObject(actual) &&
-    _.every(expected, (elt, key)=>{return isLike({expected: elt, actual: actual[key]})})
+    _.every(expected, (elt, key) => {
+      return isLike({expected: elt, actual: actual[key]})
+    })
   )
 }

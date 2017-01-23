@@ -49,8 +49,14 @@ test('isLike: expected array has more values', t => {
   t.false(isLike({expected, actual}))
 })
 
-test('isLike: expected assert', t => {
+test('isLike: expected assert basic', t => {
   const actual = [{a: 1}]
   const expected = [{a: 'assert(actual == 1)'}]
+  t.true(isLike({expected, actual}))
+})
+
+test('isLike: expected assert type', t => {
+  const actual = [{a: new Date()}]
+  const expected = [{a: 'assert(actual.constructor.name == "Date")'}]
   t.true(isLike({expected, actual}))
 })
