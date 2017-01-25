@@ -1,3 +1,4 @@
+import assert from 'assert'
 import vm from 'vm'
 import debug from 'debug'
 
@@ -36,5 +37,7 @@ export async function chill({millis = 0, resolution, rejection = 'doh!'}) {
 }
 
 export function getUrl(path, {context, port} = {}) {
+  assert(path, 'path required')
+  assert(port, 'port required')
   return `http://localhost:${port}${evalInContext({js: asTemplate(path), context})}`
 }
