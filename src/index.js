@@ -41,3 +41,9 @@ export function getUrl(path, {context, port} = {}) {
   assert(port, 'port required')
   return `http://localhost:${port}${evalInContext({js: asTemplate(path), context})}`
 }
+
+export function requireUncached(module) {
+  delete require.cache[require.resolve(module)]
+  // eslint-disable-next-line import/no-dynamic-require
+  return require(module)
+}

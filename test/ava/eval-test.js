@@ -1,7 +1,7 @@
 import assert from 'assert'
 import test from 'ava'
 import {evalInContext, asTemplate} from '../../src'
-import foo from '../src/foo'
+import foo from '../fixtures/foo'
 
 /* eslint-disable no-template-curly-in-string */
 
