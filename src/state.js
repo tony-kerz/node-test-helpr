@@ -1,25 +1,26 @@
 import assert from 'assert'
 import _ from 'lodash'
 
-let _state = {}
+/* eslint-disable camelcase */
+var __helpr_state__ = {}
 
 export function initState() {
-  _state = {}
+  __helpr_state__ = {}
 }
 
 export function setState(state) {
-  _state = {..._state, ...state}
+  __helpr_state__ = {...__helpr_state__, ...state}
 }
 
 export function getState(key, {dflt} = {}) {
-  return key ? _.get(_state, key, dflt) : _state
+  return key ? _.get(__helpr_state__, key, dflt) : __helpr_state__
 }
 
 export function getRequiredState(key) {
-  assert(_.has(_state, key))
+  assert(_.has(__helpr_state__, key))
   return getState(key)
 }
 
 export function unsetState(key) {
-  _.unset(_state, key)
+  _.unset(__helpr_state__, key)
 }
