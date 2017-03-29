@@ -3,7 +3,6 @@ import vm from 'vm'
 import debug from 'debug'
 
 export * from './state'
-export * from './is-like'
 
 const dbg = debug('app:test-helpr')
 
